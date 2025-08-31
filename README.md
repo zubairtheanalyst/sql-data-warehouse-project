@@ -23,6 +23,7 @@ This project was both a **practical challenge** and an opportunity to showcase t
 ---
 
 ## 🏗️ Data Architecture  
+![Data Architecture Diagram](docs/Architecture.png) 
 
 The solution is structured using the **Medallion Architecture** pattern:  
 
