@@ -8,12 +8,12 @@ This document outlines the **naming conventions** used for schemas, tables, view
 
 1. [General Principles](#general-principles)  
 2. [Table Naming Conventions](#table-naming-conventions)  
-   - Bronze Rules  
-   - Silver Rules  
-   - Gold Rules  
+   - [🟫 Bronze Rules](#bronze-rules)  
+   - [🟦 Silver Rules](#silver-rules)  
+   - [🟨 Gold Rules](#gold-rules)  
 3. [Column Naming Conventions](#column-naming-conventions)  
-   - Surrogate Keys  
-   - Technical Columns  
+   - [Surrogate Keys](#surrogate-keys)  
+   - [Technical Columns](#technical-columns)  
 4. [Stored Procedures](#stored-procedures)
 
 ---
@@ -28,30 +28,30 @@ This document outlines the **naming conventions** used for schemas, tables, view
 
 ## Table Naming Conventions
 
-### Bronze Rules
+### 🟫 Bronze Rules
 
-- All names must start with the **source system name**, and table names must match their original names without renaming.  
-- Format: `<sourcesystem>_<entity>`  
+- All table names must start with the **source system name** and match the original table name.  
+- **Format:** `<sourcesystem>_<entity>`  
   - `<sourcesystem>`: Name of the source system (e.g., `crm`, `erp`)  
   - `<entity>`: Exact table name from the source system  
 
 **Example:**  
 `crm_customer_info` → Customer information from the CRM system.
 
-### Silver Rules
+### 🟦 Silver Rules
 
 - Same rules as Bronze: `<sourcesystem>_<entity>`  
-- Tables reflect the cleaned and standardized data from source systems.
+- Tables reflect **cleaned and standardized data** from source systems.  
 
 **Example:**  
-`crm_customer_info` → Cleaned/standardized customer info from CRM.
+`crm_customer_info` → Standardized customer information from CRM.
 
-### Gold Rules
+### 🟨 Gold Rules
 
-- Use **meaningful, business-aligned names** starting with a **category prefix**:  
-- Format: `<category>_<entity>`  
+- Use **meaningful, business-aligned names** starting with a **category prefix**.  
+- **Format:** `<category>_<entity>`  
   - `<category>`: Role of the table (e.g., `dim` for dimension, `fact` for fact table)  
-  - `<entity>`: Descriptive business-aligned name  
+  - `<entity>`: Descriptive, business-aligned table name  
 
 **Examples:**  
 - `dim_customers` → Dimension table for customer data  
@@ -59,11 +59,11 @@ This document outlines the **naming conventions** used for schemas, tables, view
 
 **Glossary of Category Patterns**
 
-| Pattern | Meaning         | Example(s)                |
-|---------|----------------|---------------------------|
-| dim_    | Dimension table | dim_customer, dim_product |
-| fact_   | Fact table      | fact_sales                |
-| report_ | Report table    | report_customers, report_sales_monthly |
+| Pattern   | Meaning         | Example(s)                   |
+|-----------|----------------|------------------------------|
+| dim_      | Dimension table | dim_customer, dim_product    |
+| fact_     | Fact table      | fact_sales                   |
+| report_   | Report table    | report_customers, report_sales_monthly |
 
 ---
 
@@ -72,22 +72,23 @@ This document outlines the **naming conventions** used for schemas, tables, view
 ### Surrogate Keys
 
 - All primary keys in **dimension tables** must use the suffix `_key`.  
-- Format: `<table_name>_key`  
+- **Format:** `<table_name>_key`  
 - **Example:** `customer_key` → Surrogate key in the `dim_customers` table
 
 ### Technical Columns
 
-- All technical columns must start with the prefix `dwh_`, followed by a descriptive name indicating the column's purpose.  
-- Format: `dwh_<column_name>`  
+- All technical columns must start with the prefix `dwh_` followed by a descriptive name.  
+- **Format:** `dwh_<column_name>`  
 - **Example:** `dwh_load_date` → Stores the date when the record was loaded
 
 ---
 
 ## Stored Procedures
 
-- All stored procedures used for loading data must follow the pattern: `load_<layer>`  
+- All stored procedures used for loading data must follow the naming pattern: `load_<layer>`  
 - `<layer>`: Represents the layer being loaded (`bronze`, `silver`, `gold`)  
 
 **Examples:**  
 - `load_bronze` → Loads data into Bronze layer  
-- `load_silver` → Loads data into Silver layer
+- `load_silver` → Loads data into Silver layer  
+- `load_gold` → Loads data into Gold layer
